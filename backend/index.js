@@ -40,7 +40,7 @@ app.post('/employee',async(req, res) => {
 
         res.status(201).json({
             success: true,
-            message: 'Emloyee created successfully',
+            message: 'Employee created successfully',
             data : savedEmployee
         });
     } catch (error) {
