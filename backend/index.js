@@ -13,7 +13,7 @@
 // import Employee from './Models/employee.js'
 import express from 'express';
 import mongoose from 'mongoose';
-import Employee from './Models/employee.js';
+
 
 const app = express();
 const port = 3000;
@@ -27,31 +27,36 @@ const dbConnection = mongoose.connect(MONGODB_URI);
 
 dbConnection.then(() => {
     console.log('connected to mongodb successfully')
-}) .catch((error) => {
-    console.log('Error connecting mongodb:',error)
+}).catch((error) => {
+    console.log('Error connecting mongodb:', error)
     process.exit(1)
 })
 
 
-app.post('/employee',async(req, res) => {
-    try {
-        const employee = new Employee(req.body);
-        const savedEmployee = await employee.save();
+// app.post('/employee',async(req, res) => {
+//     try {
+//         const employee = new Employee(req.body);
+//         const savedEmployee = await employee.save();
 
-        res.status(201).json({
-            success: true,
-            message: 'Employee created successfully',
-            data : savedEmployee
-        });
-    } catch (error) {
-        console.error('Error creating employee:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Internal server error',
-            error: error.message
-        });
-    }
-})
+//         res.status(201).json({
+//             success: true,
+//             message: 'Employee created successfully',
+//             data : savedEmployee
+//         });
+//     } catch (error) {
+//         console.error('Error creating employee:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Internal server error',
+//             error: error.message
+//         });
+//     }
+// })
+
+import emp from './routes/employeeRoutes.js'
+app.use('/employee', emp)
+// import dep from './routes/departmentRoutes.js'
+// app.use('/employee', dep)
 
 app.listen(port, () => {
     console.log(`Backend server is running at http://localhost:${port}`);
