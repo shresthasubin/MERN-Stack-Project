@@ -13,6 +13,7 @@
 // import Employee from './Models/employee.js'
 import express from 'express';
 import mongoose from 'mongoose';
+import routes from './routes/index.js';
 
 
 const app = express();
@@ -33,6 +34,8 @@ dbConnection.then(() => {
 })
 
 
+
+app.use('/api',routes)
 // app.post('/employee',async(req, res) => {
 //     try {
 //         const employee = new Employee(req.body);
@@ -53,10 +56,18 @@ dbConnection.then(() => {
 //     }
 // })
 
-import emp from './routes/employeeRoutes.js'
-app.use('/employee', emp)
-// import dep from './routes/departmentRoutes.js'
-// app.use('/employee', dep)
+// import emp from './routes/employeeRoutes.js'
+// app.use('/employee', emp)
+
+// import authRoutes from './routes/authRoutes.js'
+// app.use('/auth', authRoutes)
+// // import dep from './routes/departmentRoutes.js'
+// // app.use('/employee', dep)
+
+// import { authMiddleware } from './middleware/auth.js';
+// app.get('/profile',authMiddleware, (req, res) => {
+//     res.send('Profile')
+// })
 
 app.listen(port, () => {
     console.log(`Backend server is running at http://localhost:${port}`);

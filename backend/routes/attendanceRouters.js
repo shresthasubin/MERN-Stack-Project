@@ -1,5 +1,5 @@
 import express from 'express'
-import { createAttendance, deleteAttendance, getAttendance, getAttendanceById, updateAttendance } from '../controllers/attendanceControllers'
+import { createAttendance, deleteAttendance, getAttendance, getAttendanceById, updateAttendance } from '../controllers/attendanceControllers.js'
 
 const router = express.Router()
 router.post('/',createAttendance)

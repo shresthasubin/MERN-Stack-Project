@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPayroll, deletePayroll, getPayroll, getPayrollById, updatePayroll } from '../controllers/payrollControllers'
+import { createPayroll, deletePayroll, getPayroll, getPayrollById, updatePayroll } from '../controllers/payrollControllers.js'
 
 const router_P = express.Router()
 

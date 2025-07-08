@@ -1,5 +1,5 @@
 import express from 'express'
-import { createDepartment, deleteDepartmentById, getDepartment, getDepartmentById, updateDepartmentById } from '../controllers/departmentController'
+import { createDepartment, deleteDepartmentById, getDepartment, getDepartmentById, updateDepartmentById } from '../controllers/departmentController.js'
 
 const router_D = express.Router()
 

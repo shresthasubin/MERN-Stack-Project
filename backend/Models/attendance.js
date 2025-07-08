@@ -1,14 +1,12 @@
 import mongoose from 'mongoose'
 
 const attendanceSchema = new mongoose.Schema({
-    userId: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Employee',
-            required: true,
-            trim: true
-        }
-    ],
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee',
+        required: true,
+        trim: true
+    },
     date: {
         type: Date,
         required: true

@@ -1,4 +1,4 @@
-import Payroll from "../Models/payroll";
+import Payroll from "../Models/payroll.js";
 
 const createPayroll = async(req, res) => {
     try {

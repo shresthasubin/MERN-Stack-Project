@@ -1,5 +1,5 @@
 import express from 'express'
-import { createLeave, deleteLeave, getLeave, getLeaveById, updateLeave } from '../controllers/leaveControllers'
+import { createLeave, deleteLeave, getLeave, getLeaveById, updateLeave } from '../controllers/leaveControllers.js'
 
 const router_L = express.Router()
 
