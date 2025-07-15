@@ -14,6 +14,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import routes from './routes/index.js';
+import cookieParser from 'cookie-parser';
+import Employee from './Models/employee.js';
+import bcrypt from 'bcryptjs';
 
 
 const app = express();
@@ -21,18 +24,37 @@ const port = 3000;
 
 
 app.use(express.json());
-
+app.use(cookieParser());
+app.use("/uploads", express.static("uploads/"))
 const MONGODB_URI = 'mongodb+srv://myFirstCluster:subinstha12@cluster0.0lqb2hr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 
 const dbConnection = mongoose.connect(MONGODB_URI);
 
 dbConnection.then(() => {
     console.log('connected to mongodb successfully')
+    seedAdmin()
 }).catch((error) => {
     console.log('Error connecting mongodb:', error)
     process.exit(1)
 })
 
+async function seedAdmin() {
+    try {
+        const admin = await Employee.findOne({email: 'admin@gmail.com'})
+        if (!admin) {
+            const hashedPassword = await bcrypt.hash('admin', 10);
+            await Employee.create({
+                name: 'Admin',
+                email: 'admin@gmail.com',
+                password: hashedPassword,
+                role: 'admin',
+                dept: "64d5c6aee9f6a9e78c7b1234"
+            })
+        }
+    } catch (err) {
+        console.log(err.message)
+    }
+}
 
 
 app.use('/api',routes)

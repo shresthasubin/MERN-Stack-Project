@@ -25,14 +25,20 @@ const employeeSchema = new mongoose.Schema({
         required: true,
         lowercase: true,
         trim: true,
-        enum: ['admin', 'manager', 'employee']
+        enum: ['admin', 'manager', 'employee'],
+        default: 'employee'
     },
     dept: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department'
     },
     salary: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    profileImage: {
+        type: String,
+        default : ''
     }
 }, {timestamps: true});
 

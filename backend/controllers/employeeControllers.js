@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
 import Employee from "../Models/employee.js";
+import {sendEmail} from '../utils/sendEmail.js'
 
 const createEmployee = async(req, res) => {
     try {
@@ -8,10 +9,15 @@ const createEmployee = async(req, res) => {
         employee.password = hashedPassword
         const savedEmployee = await employee.save();
 
+        sendEmail(employee.email, 'Welcome to our company', 'Hello ' + employee.name + ', welcome to our company. We are glad to have you on board. ' +'Your login credentials are as follows: \nEmail: ' + employee.email + '\nPassword: ' + req.body.password + '\n\nThank you,\nAdmin');
+
+        const { password: _, ...employeeData} = savedEmployee.toObject()
+        employeeData.profileImage = req.file.filename
+        
         res.status(201).json({
             success: true,
             message: 'Employee created successfully',
-            data: savedEmployee
+            data:employeeData
         });
     } catch (error) {
         console.error('Error creating employee:', error);

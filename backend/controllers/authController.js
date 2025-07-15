@@ -5,22 +5,17 @@ import bcrypt from 'bcryptjs';
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
+        
         const employee = await Employee.findOne({ email }).select('+password')
         // console.log(email);
         // console.log(password);
         if (!employee) {
             return res.status(404).json({
                 success: false,
-                message: 'invalid email'
+                message: 'employee not found'
             })
         }
 
-        if (!employee.password) {
-            return res.status(400).json({
-                success: false,
-                message: 'No password set for this user.'
-            })
-        }
 
         const isMatch = await bcrypt.compare(password, employee.password)
         if (!isMatch) {
@@ -29,7 +24,14 @@ const login = async (req, res) => {
                 message: 'invalid password'
             })
         }
-        const token = jwt.sign({ id: employee._id, email: employee.email }, 'a-string-secret-at-least-256-bits-long', { expiresIn: '1h' });
+        const token = jwt.sign(
+            { 
+                id: employee._id, 
+                email: employee.email 
+            }, 
+            'a-string-secret-at-least-256-bits-long', 
+            { expiresIn: '1h' }
+        );
 
         res.cookie('token', token, {
             httpOnly: true,
