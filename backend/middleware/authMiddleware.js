@@ -11,7 +11,7 @@ const authenticateToken = async (req, res, next) => {
             })
         }
 
-        const decoded = jwt.verify(token, 'a-string-secret-at-least-256-bits-long')
+        const decoded = jwt.verify(token, process.env.JWT_SECRET)
         req.employee = await Employee.findById(decoded.id).select("-password");
         next()
     } catch (err) {

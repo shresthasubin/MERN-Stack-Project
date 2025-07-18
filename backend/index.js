@@ -17,16 +17,23 @@ import routes from './routes/index.js';
 import cookieParser from 'cookie-parser';
 import Employee from './Models/employee.js';
 import bcrypt from 'bcryptjs';
-
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-
+dotenv.config({
+    path: '/.env'
+})
+app.use(cors({
+    origin: '*',
+    credential: true
+}))
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static("uploads/"))
-const MONGODB_URI = 'mongodb+srv://myFirstCluster:subinstha12@cluster0.0lqb2hr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const MONGODB_URI = process.env.MONGODB_URI
 
 const dbConnection = mongoose.connect(MONGODB_URI);
 

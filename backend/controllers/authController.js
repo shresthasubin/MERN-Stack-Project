@@ -29,7 +29,7 @@ const login = async (req, res) => {
                 id: employee._id, 
                 email: employee.email 
             }, 
-            'a-string-secret-at-least-256-bits-long', 
+            process.env.JWT_SECRET, 
             { expiresIn: '1h' }
         );
 
