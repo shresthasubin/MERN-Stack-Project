@@ -19,13 +19,13 @@ import Employee from './Models/employee.js';
 import bcrypt from 'bcryptjs';
 import cors from 'cors';
 import dotenv from 'dotenv';
+dotenv.config({
+    path: '/.env'
+})
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-dotenv.config({
-    path: '/.env'
-})
 app.use(cors({
     origin: '*',
     credential: true
